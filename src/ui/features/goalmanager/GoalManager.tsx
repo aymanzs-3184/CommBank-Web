@@ -17,6 +17,7 @@ import GoalIcon from './GoalIcon'
 import { TransparentButton } from '../../components/TransparentButton'
 
 type Props = { goal: Goal }
+
 export function GoalManager(props: Props) {
   const dispatch = useAppDispatch()
   const goal = useAppSelector(selectGoalsMap)[props.goal.id]
@@ -54,13 +55,7 @@ export function GoalManager(props: Props) {
     setTargetDate(props.goal.targetDate)
     setTargetAmount(props.goal.targetAmount)
     setIcon(props.goal.icon)
-  }, [
-    props.goal.id,
-    props.goal.name,
-    props.goal.targetDate,
-    props.goal.targetAmount,
-    props.goal.icon,
-  ])
+  }, [props.goal.id, props.goal.name, props.goal.targetDate, props.goal.targetAmount, props.goal.icon])
 
   useEffect(() => {
     setName(goal.name)
@@ -116,10 +111,7 @@ export function GoalManager(props: Props) {
       <Group>
         <Field name="Target Amount" icon={faDollarSign} />
         <Value>
-          <StringInput
-            value={targetAmount?.toString() ?? ''}
-            onChange={updateTargetAmountOnChange}
-          />
+          <StringInput value={targetAmount?.toString() ?? ''} onChange={updateTargetAmountOnChange} />
         </Value>
       </Group>
       <Group>
@@ -137,11 +129,7 @@ export function GoalManager(props: Props) {
       <GoalIconContainer shouldShow={hasIcon()}>
         <GoalIcon icon={goal.icon} onClick={addIconOnClick} />
       </GoalIconContainer>
-      <EmojiPickerContainer
-        isOpen={emojiPickerIsOpen}
-        hasIcon={hasIcon()}
-        onClick={(event) => event.stopPropagation()}
-      >
+      <EmojiPickerContainer isOpen={emojiPickerIsOpen} hasIcon={hasIcon()} onClick={(event) => event.stopPropagation()}>
         <EmojiPicker onClick={pickEmojiOnClick} />
       </EmojiPickerContainer>
       <AddIconButtonContainer shouldShow={!hasIcon()}>
